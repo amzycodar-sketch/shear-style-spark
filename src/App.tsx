@@ -17,6 +17,16 @@ import CareersPage from "./pages/CareersPage";
 import FAQPage from "./pages/FAQPage";
 import BookingPage from "./pages/BookingPage";
 import PricingPage from "./pages/PricingPage";
+import TestimonialsPage from "./pages/TestimonialsPage";
+import LoyaltyPage from "./pages/LoyaltyPage";
+import GiftCardsPage from "./pages/GiftCardsPage";
+import StudentDiscountPage from "./pages/StudentDiscountPage";
+import CorporatePage from "./pages/CorporatePage";
+import FranchisePage from "./pages/FranchisePage";
+import PressPage from "./pages/PressPage";
+import PartnershipsPage from "./pages/PartnershipsPage";
+import EventsPage from "./pages/EventsPage";
+import AcademyPage from "./pages/AcademyPage";
 import HaircutPage from "./pages/services/HaircutPage";
 import BeardGroomingPage from "./pages/services/BeardGroomingPage";
 import HotTowelShavePage from "./pages/services/HotTowelShavePage";
@@ -92,6 +102,16 @@ const App = () => (
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/loyalty" element={<LoyaltyPage />} />
+          <Route path="/gift-cards" element={<GiftCardsPage />} />
+          <Route path="/student-discount" element={<StudentDiscountPage />} />
+          <Route path="/corporate" element={<CorporatePage />} />
+          <Route path="/franchise" element={<FranchisePage />} />
+          <Route path="/press" element={<PressPage />} />
+          <Route path="/partnerships" element={<PartnershipsPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/academy" element={<AcademyPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFound />} />
