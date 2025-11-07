@@ -21,6 +21,7 @@ const Navigation = () => {
     { name: "Barbers", path: "/barbers" },
     { name: "Gallery", path: "/gallery" },
     { name: "Shop", path: "/shop" },
+    { name: "Pricing", path: "/pricing" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
   ];
@@ -49,9 +50,11 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
-            <Button variant="default" size="lg" className="hover-glow">
-              Book Now
-            </Button>
+            <Link to="/booking">
+              <Button variant="default" size="lg" className="hover-glow">
+                Book Now
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -77,9 +80,11 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
-            <Button variant="default" className="w-full mt-4">
-              Book Now
-            </Button>
+            <Link to="/booking" className="block">
+              <Button variant="default" className="w-full mt-4">
+                Book Now
+              </Button>
+            </Link>
           </div>
         )}
       </div>

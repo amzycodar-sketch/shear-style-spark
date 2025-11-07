@@ -15,6 +15,8 @@ import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import CareersPage from "./pages/CareersPage";
 import FAQPage from "./pages/FAQPage";
+import BookingPage from "./pages/BookingPage";
+import PricingPage from "./pages/PricingPage";
 import HaircutPage from "./pages/services/HaircutPage";
 import BeardGroomingPage from "./pages/services/BeardGroomingPage";
 import HotTowelShavePage from "./pages/services/HotTowelShavePage";
@@ -88,6 +90,8 @@ const App = () => (
           <Route path="/about" element={<AboutPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/booking" element={<BookingPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="*" element={<NotFound />} />

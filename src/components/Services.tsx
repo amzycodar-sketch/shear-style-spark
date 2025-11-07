@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Scissors, Sparkles, Wind, Palette } from "lucide-react";
+import { motion } from "framer-motion";
 import haircutImg from "@/assets/service-haircut.jpg";
 import beardImg from "@/assets/service-beard.jpg";
 import shaveImg from "@/assets/service-shave.jpg";
@@ -47,25 +48,40 @@ const Services = () => {
   ];
 
   return (
-    <section className="py-24 bg-card">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 slide-up">
+    <section className="py-24 bg-card relative overflow-hidden">
+      {/* Parallax background elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 right-10 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h2 className="font-display text-5xl md:text-6xl font-bold mb-4">
             Our <span className="text-gradient">Services</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             From classic cuts to modern styles, we offer a full range of premium grooming services
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <Card
+              <motion.div
                 key={service.id}
-                className="group overflow-hidden hover-lift bg-background border-border hover:border-primary transition-all duration-300 scale-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="group overflow-hidden hover-lift bg-background border-border hover:border-primary transition-all duration-300 h-full"
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -91,6 +107,7 @@ const Services = () => {
                   </div>
                 </CardContent>
               </Card>
+              </motion.div>
             );
           })}
         </div>
