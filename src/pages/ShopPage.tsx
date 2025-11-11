@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingCart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 const ShopPage = () => {
+  const { addToCart } = useCart();
+  
   const products = [
     {
       id: 1,
@@ -141,7 +144,11 @@ const ShopPage = () => {
                           View
                         </Button>
                       </Link>
-                      <Button size="sm" className="hover-glow">
+                      <Button 
+                        size="sm" 
+                        className="hover-glow"
+                        onClick={() => addToCart(product.slug, product.name, product.price)}
+                      >
                         <ShoppingCart className="w-4 h-4" />
                       </Button>
                     </div>

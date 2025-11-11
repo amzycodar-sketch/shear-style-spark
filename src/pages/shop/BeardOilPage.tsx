@@ -1,10 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Star, ShoppingCart, Check } from "lucide-react";
+import ProductReviews from "@/components/ProductReviews";
+import { useCart } from "@/contexts/CartContext";
 
 const BeardOilPage = () => {
+  const { addToCart } = useCart();
+  
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -39,7 +43,11 @@ const BeardOilPage = () => {
                 Nourish and condition your beard with our premium blend of natural oils. Softens facial hair, eliminates itchiness, and promotes healthy growth.
               </p>
 
-              <Button size="lg" className="hover-glow mb-12">
+              <Button 
+                size="lg" 
+                className="hover-glow mb-12"
+                onClick={() => addToCart('beard-oil', 'Beard Oil', 18.99)}
+              >
                 <ShoppingCart className="mr-2 w-5 h-5" />
                 Add to Cart
               </Button>
@@ -64,6 +72,12 @@ const BeardOilPage = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-card">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <ProductReviews productSlug="beard-oil" />
         </div>
       </section>
 

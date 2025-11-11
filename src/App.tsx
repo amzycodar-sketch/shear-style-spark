@@ -54,6 +54,12 @@ import BeardBalmPage from "./pages/shop/BeardBalmPage";
 import StylingWaxPage from "./pages/shop/StylingWaxPage";
 import ShavingCreamPage from "./pages/shop/ShavingCreamPage";
 import NotFound from "./pages/NotFound";
+import AuthPage from "./pages/AuthPage";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminAppointments from "./pages/admin/AdminAppointments";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 const queryClient = new QueryClient();
 
@@ -114,6 +120,12 @@ const App = () => (
           <Route path="/academy" element={<AcademyPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/appointments" element={<AdminAppointments />} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
