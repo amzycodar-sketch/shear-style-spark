@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 import { z } from "zod";
 
 const checkoutSchema = z.object({
@@ -74,15 +75,25 @@ const CheckoutPage = () => {
 
       if (itemsError) throw itemsError;
 
-      // Clear cart
-      await clearCart();
+      // Create Stripe checkout session
+      const { data: sessionData, error: stripeError } = await supabase.functions.invoke(
+        'create-checkout',
+        {
+          body: { 
+            orderId: order.id,
+            amount: total 
+          }
+        }
+      );
 
-      toast({
-        title: "Order placed!",
-        description: "Your order has been successfully placed.",
-      });
+      if (stripeError) throw stripeError;
 
-      navigate("/");
+      // Redirect to Stripe checkout
+      if (sessionData?.url) {
+        window.location.href = sessionData.url;
+      } else {
+        throw new Error("No checkout URL received");
+      }
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         toast({
@@ -97,7 +108,6 @@ const CheckoutPage = () => {
           variant: "destructive",
         });
       }
-    } finally {
       setLoading(false);
     }
   };
@@ -154,7 +164,14 @@ const CheckoutPage = () => {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full hover-glow" disabled={loading}>
-                    {loading ? "Processing..." : "Place Order"}
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      "Proceed to Payment"
+                    )}
                   </Button>
                 </form>
               </CardContent>
