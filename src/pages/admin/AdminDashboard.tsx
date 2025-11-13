@@ -185,6 +185,22 @@ const AdminDashboard = () => {
                   <ShoppingCart className="mr-2 w-4 h-4" />
                   Manage Products
                 </Button>
+                <Button 
+                  className="w-full justify-start" 
+                  variant="outline"
+                  onClick={() => navigate("/admin/testimonials")}
+                >
+                  <Star className="mr-2 w-4 h-4" />
+                  Manage Testimonials
+                </Button>
+                <Button 
+                  className="w-full justify-start" 
+                  variant="outline"
+                  onClick={() => navigate("/admin/barbers")}
+                >
+                  <Users className="mr-2 w-4 h-4" />
+                  Manage Barbers
+                </Button>
               </CardContent>
             </Card>
 

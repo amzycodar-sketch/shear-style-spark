@@ -1,58 +1,40 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
+  image_url: string | null;
+}
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      id: 1,
-      name: "James Peterson",
-      role: "Business Executive",
-      rating: 5,
-      text: "Elite Cutz has been my go-to barber shop for over 3 years. Marcus always knows exactly what I need. The attention to detail is unmatched!",
-      image: "",
-    },
-    {
-      id: 2,
-      name: "Michael Rodriguez",
-      role: "Software Engineer",
-      rating: 5,
-      text: "Best barber experience in the city. The hot towel shave is absolutely incredible. Professional service every single time.",
-      image: "",
-    },
-    {
-      id: 3,
-      name: "David Chen",
-      role: "Marketing Director",
-      rating: 5,
-      text: "I've tried many barbershops, but Elite Cutz stands out. The team is skilled, friendly, and the atmosphere is perfect for relaxation.",
-      image: "",
-    },
-    {
-      id: 4,
-      name: "Robert Williams",
-      role: "Entrepreneur",
-      rating: 5,
-      text: "The VIP package is worth every penny. From the haircut to the beard grooming and massage, it's the ultimate grooming experience.",
-      image: "",
-    },
-    {
-      id: 5,
-      name: "Alex Thompson",
-      role: "Designer",
-      rating: 5,
-      text: "Carlos is an artist with the clippers! The creative designs he does are always on point. Highly recommend booking with him.",
-      image: "",
-    },
-    {
-      id: 6,
-      name: "Daniel Martinez",
-      role: "Real Estate Agent",
-      rating: 5,
-      text: "Consistent quality, professional service, and great atmosphere. Elite Cutz has set the standard for what a modern barbershop should be.",
-      image: "",
-    },
-  ];
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+  useEffect(() => {
+    loadTestimonials();
+  }, []);
+
+  const loadTestimonials = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('*')
+        .eq('featured', true)
+        .order('created_at', { ascending: false })
+        .limit(6);
+
+      if (error) throw error;
+      setTestimonials(data || []);
+    } catch (error) {
+      console.error('Error loading testimonials:', error);
+    }
+  };
 
   return (
     <section className="py-24 bg-background relative overflow-hidden">
@@ -95,16 +77,16 @@ const Testimonials = () => {
                     ))}
                   </div>
                   <p className="text-muted-foreground mb-6 leading-relaxed italic">
-                    "{testimonial.text}"
+                    "{testimonial.content}"
                   </p>
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
-                      <span className="font-display text-xl font-bold text-primary">
+                      <span className="text-xl font-bold text-primary">
                         {testimonial.name.charAt(0)}
                       </span>
                     </div>
                     <div>
-                      <p className="font-semibold">{testimonial.name}</p>
+                      <h4 className="font-semibold">{testimonial.name}</h4>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </div>
