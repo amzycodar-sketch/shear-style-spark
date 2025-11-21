@@ -112,24 +112,57 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Updated to Match Desktop */}
         {isOpen && (
-          <div className="md:hidden pb-4 fade-in">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="block py-2 text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.name}
+          <div className="md:hidden pb-4 fade-in flex flex-col space-y-4"> {/* Added flex for layout */}
+            {/* Links */}
+            <div className="flex flex-col space-y-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className="text-foreground hover:text-primary transition-colors font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+            
+            {/* Cart, Login/Logout, Book Now - Matching Desktop Order */}
+            <div className="flex flex-col space-y-2">
+              <Link to="/cart" className="relative" onClick={() => setIsOpen(false)}>
+                <Button size="sm" variant="ghost" className="w-full justify-start">
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  Cart
+                  {itemCount > 0 && (
+                    <span className="ml-auto bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {itemCount}
+                    </span>
+                  )}
+                </Button>
               </Link>
-            ))}
-            <Link to="/booking" className="block">
-              <Button variant="default" className="w-full mt-4">
-                Book Now
-              </Button>
-            </Link>
+              
+              {user ? (
+                <Button size="sm" variant="ghost" onClick={() => { handleLogout(); setIsOpen(false); }} className="w-full justify-start">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              ) : (
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button size="sm" variant="ghost" className="w-full justify-start">
+                    <User className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
+              
+              <Link to="/booking" onClick={() => setIsOpen(false)}>
+                <Button variant="default" className="w-full">
+                  Book Now
+                </Button>
+              </Link>
+            </div>
           </div>
         )}
       </div>
