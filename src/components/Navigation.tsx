@@ -102,43 +102,17 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* Mobile Header - Added Cart and Login/Logout */}
-          <div className="md:hidden flex items-center space-x-2">
-            <Link to="/cart" className="relative">
-              <Button size="sm" variant="ghost">
-                <ShoppingCart className="w-5 h-5" />
-                {itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    {itemCount}
-                  </span>
-                )}
-              </Button>
-            </Link>
-            {user ? (
-              <Button size="sm" variant="ghost" onClick={handleLogout}>
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
-              </Button>
-            ) : (
-              <Link to="/auth">
-                <Button size="sm" variant="ghost">
-                  <User className="w-4 h-4 mr-2" />
-                  Login
-                </Button>
-              </Link>
-            )}
-            {/* Mobile Menu Button */}
-            <button
-              className="text-foreground"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-foreground"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Navigation Menu - Added Cart and Login/Logout */}
         {isOpen && (
           <div className="md:hidden pb-4 fade-in flex flex-col space-y-4">
             {/* Links */}
@@ -155,8 +129,34 @@ const Navigation = () => {
               ))}
             </div>
             
-            {/* Book Now */}
+            {/* Cart, Login/Logout, Book Now */}
             <div className="flex flex-col space-y-2">
+              <Link to="/cart" className="relative" onClick={() => setIsOpen(false)}>
+                <Button size="sm" variant="ghost" className="w-full justify-start">
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  Cart
+                  {itemCount > 0 && (
+                    <span className="ml-auto bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {itemCount}
+                    </span>
+                  )}
+                </Button>
+              </Link>
+              
+              {user ? (
+                <Button size="sm" variant="ghost" onClick={() => { handleLogout(); setIsOpen(false); }} className="w-full justify-start">
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Logout
+                </Button>
+              ) : (
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button size="sm" variant="ghost" className="w-full justify-start">
+                    <User className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
+              
               <Link to="/booking" onClick={() => setIsOpen(false)}>
                 <Button variant="default" className="w-full">
                   Book Now
